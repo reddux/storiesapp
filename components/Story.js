@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   body: {
     ...Fonts.style.normal,
     color: Colors.text,
-    marginHorizontal: 30,
+    marginHorizontal: 24,
     paddingVertical: 20,
     textAlign: 'justify',
   }

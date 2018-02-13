@@ -1,10 +1,27 @@
-import { Navigation } from 'react-native-navigation';
-
+import React from 'react'
+import { StackNavigator } from 'react-navigation';
+import { Fonts, Colors } from '../themes/';
 import HomeScreen from './HomeScreen';
 import Reader from './Reader';
 
-// register all screens of the app (including internal ones)
-export function registerScreens() {
-  Navigation.registerComponent('example.HomeScreen', () => HomeScreen);
-  Navigation.registerComponent('example.Reader', () => Reader);
-}
+const RootStack = StackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    Reader: {
+      screen: Reader,
+    }
+  },
+  {
+    initialRouteName: 'Home',
+    navigationOptions: {
+      headerTintColor: Colors.text,
+      headerStyle: {
+        backgroundColor: '#000',
+      },
+    },
+  }
+);
+
+export default RootStack;

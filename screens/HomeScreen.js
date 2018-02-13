@@ -1,4 +1,5 @@
 import React from 'react';
+import { StackNavigator } from 'react-navigation';
 import { Navigator, NativeModules, StatusBar } from 'react-native';
 import { Toolbar } from 'react-native-material-ui';
 import { Alert, StyleSheet, View, FlatList, TouchableHighlight } from 'react-native';
@@ -6,8 +7,12 @@ import { Fonts, Colors } from '../themes/';
 import ListItem from '../components/ListItem';
 import Firebase from '../config/Firebase';
 import { ReadTime } from '../utilities/';
+import TitleMenu from '../components/TitleMenu';
 
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    headerTitle: <TitleMenu />,
+  }
 
   constructor(props) {
     super(props);
@@ -82,14 +87,19 @@ export default class HomeScreen extends React.Component {
       });
   }
 
-  _readStory() {
-    Alert.alert('Touched');
+  _readStory(post) {
+    this.props.navigation.navigate('Reader', {
+      post_title: post.item.post_title,
+      top_comment_author: post.item.top_comment_author,
+      read_time: ReadTime(post.item.top_comment).minutes,
+      top_comment: post.item.top_comment
+    });
   }
 
   _renderItem(post) {
     return (
       <TouchableHighlight
-        onPress={this._readStory}
+        onPress={() => this._readStory(post)}
         underlayColor='black'
       >
         <ListItem title={post.item.post_title} top_comment_author={post.item.top_comment_author} read_time={ReadTime(post.item.top_comment).minutes}/>
@@ -100,10 +110,6 @@ export default class HomeScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Toolbar
-          leftElement="menu"
-          centerElement="Popular"
-        />
         <FlatList
           enableEmptySections={true}
           refreshing={this.state.refreshing}

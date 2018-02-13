@@ -6,14 +6,23 @@ import Story from '../components/Story';
 import Metadata from '../components/Metadata';
 
 export default class Reader extends React.Component {
+  static navigationOptions = {
+    //header: null,
+  }
 
   render() {
+    const { params } = this.props.navigation.state;
+
+    // Strip out [ ] tags
+    let post_title = params.post_title;
+    post_title = post_title.replace(/(\[.*?\])\s/g, '');
+
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Synopsis text="Alien invaders invade our Solar System. As the armies of the  world panic or ready for war, the  continent of Australia simply takes off on engines and flies off to meet them." />
-          <Metadata author="Andy" readTime="5" />
-          <Story text="The news came from the outer rim first. Contact with alien life, one of earths colonies had been approached first. We signaled peace, they did not." />
+          <Synopsis text={post_title} />
+          <Metadata author={params.top_comment_author} readTime={params.read_time} />
+          <Story text={params.top_comment} />
         </ScrollView>
       </View>
     )

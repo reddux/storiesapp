@@ -1,14 +1,10 @@
 import React from 'react';
-import { Navigator, NativeModules } from 'react-native';
-import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
-import { Platform, StyleSheet } from 'react-native';
 import { AppLoading } from 'expo';
-import HomeScreen from './screens/HomeScreen';
-import cacheAssetsAsync from './utilities/cacheAssetsAsync';
-import { Navigation } from 'react-native-navigation';
-import { registerScreens } from './screens';
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
 
-registerScreens();
+import HomeScreen from './screens/HomeScreen';
+import RootStack from './screens/';
+import cacheAssetsAsync from './utilities/cacheAssetsAsync';
 
 const uiTheme = {
   palette: {
@@ -60,7 +56,7 @@ export default class App extends React.Component {
     if (this.state.appIsReady) {
       return (
         <ThemeProvider uiTheme={uiTheme}>
-          <HomeScreen/>
+          <RootStack/>
         </ThemeProvider>
       );
     } else {
@@ -68,10 +64,3 @@ export default class App extends React.Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-});
