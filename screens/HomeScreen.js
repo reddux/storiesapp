@@ -5,7 +5,7 @@ import { Alert, StyleSheet, View, FlatList, TouchableHighlight } from 'react-nat
 import { Fonts, Colors } from '../themes/';
 import ListItem from '../components/ListItem';
 import Firebase from '../config/Firebase';
-
+import { ReadTime } from '../utilities/';
 
 export default class HomeScreen extends React.Component {
 
@@ -39,6 +39,7 @@ export default class HomeScreen extends React.Component {
           posts.push({
             post_title: child.val().post_title,
             top_comment_author: child.val().top_comment_author,
+            top_comment: child.val().top_comment,
             _key: child.key
           });
         });
@@ -65,6 +66,7 @@ export default class HomeScreen extends React.Component {
           posts.push({
             post_title: child.val().post_title,
             top_comment_author: child.val().top_comment_author,
+            top_comment: child.val().top_comment,
             _key: child.key
           });
         });
@@ -90,7 +92,7 @@ export default class HomeScreen extends React.Component {
         onPress={this._readStory}
         underlayColor='black'
       >
-        <ListItem title={post.item.post_title} top_comment_author={post.item.top_comment_author}/>
+        <ListItem title={post.item.post_title} top_comment_author={post.item.top_comment_author} read_time={ReadTime(post.item.top_comment).minutes}/>
       </TouchableHighlight>
     );
   }

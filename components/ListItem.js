@@ -16,7 +16,7 @@ export default class ListItems extends React.Component {
           <Text style={styles.listItemTitle}>{post_title}</Text>
           <View style={styles.metaData}>
             <Text style={styles.metaDataText}>{this.props.top_comment_author}</Text>
-            <Text style={styles.metaDataText}>5 min read</Text>
+            <Text style={styles.metaDataText}>{this.props.read_time} min read</Text>
           </View>
         </View>
     );
